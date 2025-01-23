@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App">
+   <top>
+      <MenuBar fx:id="menu_bar" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu fx:id="file" mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu fx:id="edit" mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu fx:id="help" mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <VBox fx:id="video_viewer" alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="title_and_buttons" alignment="TOP_CENTER">
+               <children>
+                  <Pane HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="hide_edit_btn" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#hideEditMenu" text="&lt;" textAlignment="CENTER" />
+                     </children>
+                  </Pane>
+                  <Text fx:id="video_title" strokeType="OUTSIDE" strokeWidth="0.0" text="Video/Song title" textAlignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Pane nodeOrientation="RIGHT_TO_LEFT" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="hide_library_btn" mnemonicParsing="false" onAction="#hideLibrary" text="&gt;" textAlignment="CENTER" />
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+            <Pane fx:id="video_reproductor" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <VBox fx:id="video_info">
+               <children>
+                  <ProgressBar fx:id="video_progress_bar" maxWidth="1.7976931348623157E308" prefHeight="10.0" progress="0.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </ProgressBar>
+                  <HBox fx:id="video_menu" alignment="CENTER">
+                     <children>
+                        <Button fx:id="play_btn" mnemonicParsing="false" onAction="#playVideo" text="Play" />
+                        <Button fx:id="backwards_10" mnemonicParsing="false" onAction="#back10" text="-10s" />
+                        <Button fx:id="forward_10" mnemonicParsing="false" onAction="#forward10" text="+10s" />
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <VBox fx:id="edit_buttons" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cambiar la velocidad" />
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <ScrollPane fx:id="library_content" hbarPolicy="NEVER" nodeOrientation="RIGHT_TO_LEFT" BorderPane.alignment="CENTER">
+         <content>
+            <VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308">
+               <children>
+                  <Button layoutX="10.0" layoutY="35.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutY="10.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutY="35.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutY="35.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutY="35.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutY="10.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutY="35.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutY="60.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutY="85.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutY="160.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutY="185.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutY="210.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutX="10.0" layoutY="235.0" mnemonicParsing="false" text="Button" />
+                  <Button layoutX="43.0" layoutY="60.0" mnemonicParsing="false" text="Button" />
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </right>
+</BorderPane>
