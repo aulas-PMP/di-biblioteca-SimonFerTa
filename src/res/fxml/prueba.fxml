@@ -58,7 +58,7 @@
                   </Pane>
                </children>
             </HBox>
-            <Pane fx:id="video_reproductor" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <Pane fx:id="video_reproductor" VBox.vgrow="ALWAYS" />
             <VBox fx:id="video_info">
                <children>
                   <ProgressBar fx:id="video_progress_bar" maxWidth="1.7976931348623157E308" prefHeight="10.0" progress="0.0">
@@ -91,24 +91,7 @@
    <right>
       <ScrollPane fx:id="library_content" hbarPolicy="NEVER" nodeOrientation="RIGHT_TO_LEFT" BorderPane.alignment="CENTER">
          <content>
-            <VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308">
-               <children>
-                  <Button layoutX="10.0" layoutY="35.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutY="10.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutY="35.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutY="35.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutY="35.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutY="10.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutY="35.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutY="60.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutY="85.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutY="160.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutY="185.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutY="210.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="10.0" layoutY="235.0" mnemonicParsing="false" text="Button" />
-                  <Button layoutX="43.0" layoutY="60.0" mnemonicParsing="false" text="Button" />
-               </children>
-            </VBox>
+            <VBox fx:id="library_vbox" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" />
          </content>
       </ScrollPane>
    </right>

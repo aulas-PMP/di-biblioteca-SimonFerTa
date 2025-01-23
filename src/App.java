@@ -1,8 +1,8 @@
 import java.io.File;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -48,6 +48,9 @@ public class App {
     private ScrollPane library_content;
 
     @FXML
+    private VBox library_vbox;
+
+    @FXML
     private MenuBar menu_bar;
 
     @FXML
@@ -75,6 +78,20 @@ public class App {
     private VBox video_viewer;
 
     private Stage mainWindow;
+
+    private File video;
+    
+    private MediaView video_mv;
+
+    public void setVideo(String ruta) {
+        this.video = new File(ruta);
+    }
+
+    public void updateVideo() {
+        video_mv = new MediaView(new MediaPlayer(new Media(video.toURI().toString())));
+        video_reproductor.getChildren().add(video_mv);
+        //video_mv.getMediaPlayer().play();
+    }
 
     public void setMainWindow(Stage mainWindow) {
         this.mainWindow = mainWindow;
@@ -134,16 +151,34 @@ public class App {
 
     @FXML
     void playVideo(ActionEvent event) {
-        File video = new File("res/isaac-bought-something.mp4");
+        if (play_btn.getText().equals("Play")) {
+            video_mv.getMediaPlayer().play();
+            play_btn.setText("Pause");
+        } else {
+            video_mv.getMediaPlayer().pause();
+            play_btn.setText("Play");
+        }
+    }
 
-        MediaView video_mv = new MediaView();
+    void createLibrary() {
+        File[] videos = new File("src/res/video").listFiles();
 
-        Media video_source = new Media(video.toURI().toString());
-        MediaPlayer video_mp = new MediaPlayer(video_source);
-        video_mv.setMediaPlayer(video_mp);
-        video_mp.play();
+        for (File video : videos) {
+            Button videoBtn = new Button(video.getName());
 
-        video_reproductor.getChildren().add(video_mv);
+            videoBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent arg0) {
+                    setVideo("src/res/video/" + videoBtn.getText());
+                    updateVideo();
+                }
+                
+            });
+
+            library_vbox.getChildren().add(videoBtn);
+
+        }
     }
 
 }
