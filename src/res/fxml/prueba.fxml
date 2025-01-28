@@ -37,7 +37,7 @@
       </MenuBar>
    </top>
    <center>
-      <VBox fx:id="video_viewer" alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+      <VBox fx:id="video_viewer" alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <HBox fx:id="title_and_buttons" alignment="TOP_CENTER">
                <children>
@@ -58,7 +58,7 @@
                   </Pane>
                </children>
             </HBox>
-            <Pane fx:id="video_reproductor" VBox.vgrow="ALWAYS" />
+            <HBox fx:id="video_reproductor" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <VBox fx:id="video_info">
                <children>
                   <ProgressBar fx:id="video_progress_bar" maxWidth="1.7976931348623157E308" prefHeight="10.0" progress="0.0">
