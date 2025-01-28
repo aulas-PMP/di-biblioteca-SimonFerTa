@@ -98,7 +98,7 @@ public class App {
     }
 
     public void bindProgress(MediaPlayer mp, ProgressBar pb) {
-        var binding =
+        pb.progressProperty().bind(
             Bindings.createDoubleBinding(
                 () -> {
                     Duration currentTime = mp.getCurrentTime();
@@ -106,8 +106,8 @@ public class App {
                     return currentTime.toMillis() / duration.toMillis();
                 },
                 mp.currentTimeProperty(),
-                mp.getMedia().durationProperty());
-        pb.progressProperty().bind(binding);
+                mp.getMedia().durationProperty())
+        );
     }
 
     public void setMainWindow(Stage mainWindow) {
@@ -115,28 +115,13 @@ public class App {
     }
 
     @FXML
-    void play(ActionEvent event) {
-        mainWindow.setTitle("Funciona");
-
-        video_progress_bar.setProgress(0.5);
-    }
-
-    @FXML
     void back10(ActionEvent event) {
-        if (video_progress_bar.getProgress() >= 0.1) {
-            video_progress_bar.setProgress(video_progress_bar.getProgress()-0.1);
-        } else {
-            video_progress_bar.setProgress(0);
-        }
+        video_mv.getMediaPlayer().seek(new Duration(video_mv.getMediaPlayer().getCurrentTime().toMillis()-10000));
     }
 
     @FXML
     void forward10(ActionEvent event) {
-        if (video_progress_bar.getProgress() <= 0.9) {
-            video_progress_bar.setProgress(video_progress_bar.getProgress()+0.1);
-        } else {
-            video_progress_bar.setProgress(1);
-        }
+        video_mv.getMediaPlayer().seek(new Duration(video_mv.getMediaPlayer().getCurrentTime().toMillis()+10000));
     }
 
     @FXML
