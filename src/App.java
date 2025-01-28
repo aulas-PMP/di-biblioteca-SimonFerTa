@@ -16,7 +16,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class App {
@@ -78,8 +77,6 @@ public class App {
     @FXML
     private VBox video_viewer;
 
-    private Stage mainWindow;
-
     private File video;
     
     private MediaView video_mv;
@@ -108,10 +105,6 @@ public class App {
                 mp.currentTimeProperty(),
                 mp.getMedia().durationProperty())
         );
-    }
-
-    public void setMainWindow(Stage mainWindow) {
-        this.mainWindow = mainWindow;
     }
 
     @FXML
@@ -162,26 +155,26 @@ public class App {
         }
     }
 
-    void createLibrary() {
-        File[] videos = new File("src/res/video").listFiles();
+    void createLibrary(File videoDirectory) {
+        File[] videos = videoDirectory.listFiles();
 
         for (File video : videos) {
-            Button videoBtn = new Button(video.getName().replaceFirst("[.][^.]+$", ""));
-            videoBtn.setId(video.getName());
+            if (!video.isDirectory()) {
+                Button videoBtn = new Button(video.getName().replaceFirst("[.][^.]+$", ""));
+                videoBtn.setOnAction(new EventHandler<ActionEvent>() {
 
-            videoBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent arg0) {
-                    setVideo("src/res/video/" + videoBtn.getId());
-                    updateVideo();
-                }
+                    @Override
+                    public void handle(ActionEvent arg0) {
+                        setVideo(video.getPath());
+                        updateVideo();
+                    }
+                });
                 
-            });
+                library_vbox.getChildren().add(videoBtn);
 
-            library_vbox.getChildren().add(videoBtn);
-
+            } else {
+                createLibrary(video);
+            }
         }
     }
-
 }

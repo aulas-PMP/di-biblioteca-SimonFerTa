@@ -1,3 +1,5 @@
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,11 +13,10 @@ public class Main extends Application{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("res/fxml/prueba.fxml"));
         Parent root = loader.load();
         App controller = loader.getController();
-        controller.setMainWindow(primaryStage);
         primaryStage.setTitle("Reproductor de video");
-        primaryStage.setScene(new Scene(root, 800, 800));
+        primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.show();
-        controller.createLibrary();
+        controller.createLibrary(new File("src/res/videos"));
     }
 
     public static void main(String[] args) {
