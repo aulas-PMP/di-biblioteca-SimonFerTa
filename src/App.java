@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ProgressBar;
@@ -76,6 +77,9 @@ public class App {
     private HBox video_reproductor;
 
     @FXML
+    private ChoiceBox<?> video_speed;
+
+    @FXML
     private Text video_title;
 
     @FXML
@@ -92,7 +96,7 @@ public class App {
         video_mv.fitHeightProperty().bind(video_reproductor.heightProperty());
         video_mv.fitWidthProperty().bind(video_reproductor.widthProperty());
         video_reproductor.getChildren().add(video_mv);
-        video_mv.getMediaPlayer().setCycleCount(4);
+        video_mv.getMediaPlayer().setRate(Double.parseDouble(video_speed.getSelectionModel().getSelectedItem().toString().replace("x", "")));
         bindVideo(video_mv.getMediaPlayer(), video_progress_bar);
     }
 
@@ -158,6 +162,14 @@ public class App {
             } else {
                 video_mv.getMediaPlayer().setMute(true);
             }
+        }
+    }
+
+    @FXML
+    void changeVideoSpeed(ActionEvent event) {
+        if (video_mv != null) {
+            double selected = Double.parseDouble(video_speed.getSelectionModel().getSelectedItem().toString().replace("x", ""));
+            video_mv.getMediaPlayer().setRate(selected);
         }
     }
 
