@@ -10,6 +10,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -66,6 +67,9 @@ public class App {
     private HBox video_menu;
 
     @FXML
+    private Button video_mutebtn;
+
+    @FXML
     private ProgressBar video_progress_bar;
 
     @FXML
@@ -75,26 +79,24 @@ public class App {
     private Text video_title;
 
     @FXML
-    private VBox video_viewer;
+    private Slider video_volume;
 
-    private File video;
+    @FXML
+    private VBox video_viewer;
     
     private MediaView video_mv;
 
-    public void setVideo(String ruta) {
-        this.video = new File(ruta);
-    }
-
-    public void updateVideo() {
+    public void updateVideo(File video) {
         video_mv = new MediaView(new MediaPlayer(new Media(video.toURI().toString())));
         video_reproductor.getChildren().clear();
         video_mv.fitHeightProperty().bind(video_reproductor.heightProperty());
         video_mv.fitWidthProperty().bind(video_reproductor.widthProperty());
         video_reproductor.getChildren().add(video_mv);
-        bindProgress(video_mv.getMediaPlayer(), video_progress_bar);
+        video_mv.getMediaPlayer().setCycleCount(4);
+        bindVideo(video_mv.getMediaPlayer(), video_progress_bar);
     }
 
-    public void bindProgress(MediaPlayer mp, ProgressBar pb) {
+    public void bindVideo(MediaPlayer mp, ProgressBar pb) {
         pb.progressProperty().bind(
             Bindings.createDoubleBinding(
                 () -> {
@@ -105,6 +107,17 @@ public class App {
                 mp.currentTimeProperty(),
                 mp.getMedia().durationProperty())
         );
+
+        EventHandler<MouseEvent> onClickAndDragHandler = e -> {
+            Duration dur = mp.getMedia().getDuration();
+            Duration time = dur.multiply(e.getX() / pb.getWidth());
+            mp.seek(time);
+            e.consume();
+        };
+        pb.addEventHandler(MouseEvent.MOUSE_CLICKED, onClickAndDragHandler);
+        pb.addEventHandler(MouseEvent.MOUSE_DRAGGED, onClickAndDragHandler);
+
+        video_mv.getMediaPlayer().volumeProperty().bind(video_volume.valueProperty());
     }
 
     @FXML
@@ -146,7 +159,7 @@ public class App {
 
     @FXML
     void playVideo(ActionEvent event) {
-        if (play_btn.getText().equals("Play")) {
+        if (!(video_mv.getMediaPlayer().getStatus() == MediaPlayer.Status.PLAYING)) {
             video_mv.getMediaPlayer().play();
             play_btn.setText("Pause");
         } else {
@@ -165,8 +178,8 @@ public class App {
 
                     @Override
                     public void handle(ActionEvent arg0) {
-                        setVideo(video.getPath());
-                        updateVideo();
+                        updateVideo(video);
+                        video_title.setText(videoBtn.getText());
                     }
                 });
                 
@@ -175,6 +188,15 @@ public class App {
             } else {
                 createLibrary(video);
             }
+        }
+    }
+
+    @FXML
+    void muteVideo(ActionEvent event) {
+        if (video_mv.getMediaPlayer().isMute()) {
+            video_mv.getMediaPlayer().setMute(false);
+        } else {
+            video_mv.getMediaPlayer().setMute(true);
         }
     }
 }
