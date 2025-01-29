@@ -23,13 +23,46 @@ import javafx.util.Duration;
 public class App {
 
     @FXML
-    private Button backwards_10;
+    private Button backwards_10;    
+
+        @FXML
+        void back10(ActionEvent event) {
+            if (video_mv != null) {
+                video_mv.getMediaPlayer().seek(new Duration(video_mv.getMediaPlayer().getCurrentTime().toMillis()-10000));
+            }
+        }
 
     @FXML
     private Button hide_library_btn;
 
+        @FXML
+        void hideLibrary(ActionEvent event) {
+            if (library_content.isVisible()) {
+                library_content.setVisible(false);
+                library_content.setManaged(false);
+                hide_library_btn.setText("<");
+            } else {
+                library_content.setVisible(true);
+                library_content.setManaged(true);
+                hide_library_btn.setText(">");
+            }
+        }
+
     @FXML
     private Button hide_edit_btn;
+
+        @FXML
+        void hideEditMenu(ActionEvent event) {
+            if (edit_buttons.isVisible()) {
+                edit_buttons.setVisible(false);
+                edit_buttons.setManaged(false);
+                hide_edit_btn.setText(">");
+            } else {
+                edit_buttons.setVisible(true);
+                edit_buttons.setManaged(true);
+                hide_edit_btn.setText("<");
+            }
+        }
 
     @FXML
     private Menu edit;
@@ -42,6 +75,13 @@ public class App {
 
     @FXML
     private Button forward_10;
+
+        @FXML
+        void forward10(ActionEvent event) {
+            if (video_mv != null) {
+                video_mv.getMediaPlayer().seek(new Duration(video_mv.getMediaPlayer().getCurrentTime().toMillis()+10000));
+            }
+        }
 
     @FXML
     private Menu help;
@@ -58,6 +98,19 @@ public class App {
     @FXML
     private Button play_btn;
 
+        @FXML
+        void playVideo(ActionEvent event) {
+            if (video_mv != null) {
+                if (!(video_mv.getMediaPlayer().getStatus() == MediaPlayer.Status.PLAYING)) {
+                    video_mv.getMediaPlayer().play();
+                    play_btn.setText("Pause");
+                } else {
+                    video_mv.getMediaPlayer().pause();
+                    play_btn.setText("Play");
+                }
+            }
+        }
+
     @FXML
     private Slider slider_velocidad;
 
@@ -70,6 +123,17 @@ public class App {
     @FXML
     private Button video_mutebtn;
 
+        @FXML
+        void muteVideo(ActionEvent event) {
+            if (video_mv != null) {
+                if (video_mv.getMediaPlayer().isMute()) {
+                    video_mv.getMediaPlayer().setMute(false);
+                } else {
+                    video_mv.getMediaPlayer().setMute(true);
+                }
+            }
+        }
+
     @FXML
     private ProgressBar video_progress_bar;
 
@@ -78,6 +142,14 @@ public class App {
 
     @FXML
     private ChoiceBox<?> video_speed;
+
+        @FXML
+        void changeVideoSpeed(ActionEvent event) {
+            if (video_mv != null) {
+                double selected = Double.parseDouble(video_speed.getSelectionModel().getSelectedItem().toString().replace("x", ""));
+                video_mv.getMediaPlayer().setRate(selected);
+            }
+        }
 
     @FXML
     private Text video_title;
@@ -127,80 +199,7 @@ public class App {
         video_mv.getMediaPlayer().volumeProperty().bind(video_volume.valueProperty());
     }
 
-    @FXML
-    void back10(ActionEvent event) {
-        if (video_mv != null) {
-            video_mv.getMediaPlayer().seek(new Duration(video_mv.getMediaPlayer().getCurrentTime().toMillis()-10000));
-        }
-    }
-
-    @FXML
-    void forward10(ActionEvent event) {
-        if (video_mv != null) {
-            video_mv.getMediaPlayer().seek(new Duration(video_mv.getMediaPlayer().getCurrentTime().toMillis()+10000));
-        }
-    }
-
-    @FXML
-    void playVideo(ActionEvent event) {
-        if (video_mv != null) {
-            if (!(video_mv.getMediaPlayer().getStatus() == MediaPlayer.Status.PLAYING)) {
-                video_mv.getMediaPlayer().play();
-                play_btn.setText("Pause");
-            } else {
-                video_mv.getMediaPlayer().pause();
-                play_btn.setText("Play");
-            }
-        }
-    }
-
-    @FXML
-    void muteVideo(ActionEvent event) {
-        if (video_mv != null) {
-            if (video_mv.getMediaPlayer().isMute()) {
-                video_mv.getMediaPlayer().setMute(false);
-            } else {
-                video_mv.getMediaPlayer().setMute(true);
-            }
-        }
-    }
-
-    @FXML
-    void changeVideoSpeed(ActionEvent event) {
-        if (video_mv != null) {
-            double selected = Double.parseDouble(video_speed.getSelectionModel().getSelectedItem().toString().replace("x", ""));
-            video_mv.getMediaPlayer().setRate(selected);
-        }
-    }
-
-    @FXML
-    void hideLibrary(ActionEvent event) {
-        if (library_content.isVisible()) {
-            library_content.setVisible(false);
-            library_content.setManaged(false);
-            hide_library_btn.setText("<");
-        } else {
-            library_content.setVisible(true);
-            library_content.setManaged(true);
-            hide_library_btn.setText(">");
-        }
-
-    }
-
-    @FXML
-    void hideEditMenu(ActionEvent event) {
-        if (edit_buttons.isVisible()) {
-            edit_buttons.setVisible(false);
-            edit_buttons.setManaged(false);
-            hide_edit_btn.setText(">");
-        } else {
-            edit_buttons.setVisible(true);
-            edit_buttons.setManaged(true);
-            hide_edit_btn.setText("<");
-        }
-    }
-
-    void createLibrary(File videoDirectory) {
+    public void createLibrary(File videoDirectory) {
         File[] videos = videoDirectory.listFiles();
 
         for (File video : videos) {

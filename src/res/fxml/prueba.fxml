@@ -105,17 +105,17 @@
             </Text>
             <ChoiceBox fx:id="video_speed" value="1x" onAction="#changeVideoSpeed">
                <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="0.25x" />
-                    <String fx:value="0.5x" />
-                    <String fx:value="0.75x" />
-                    <String fx:value="1x" />
-                    <String fx:value="1.25x" />
-                    <String fx:value="1.5x" />
-                    <String fx:value="1.75x" />
-                    <String fx:value="2x" />
-                </FXCollections>
-            </items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="0.25x" />
+                     <String fx:value="0.5x" />
+                     <String fx:value="0.75x" />
+                     <String fx:value="1x" />
+                     <String fx:value="1.25x" />
+                     <String fx:value="1.5x" />
+                     <String fx:value="1.75x" />
+                     <String fx:value="2x" />
+                  </FXCollections>
+               </items>
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
