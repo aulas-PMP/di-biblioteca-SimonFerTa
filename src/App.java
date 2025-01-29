@@ -108,11 +108,14 @@ public class App {
                 mp.getMedia().durationProperty())
         );
 
-        EventHandler<MouseEvent> onClickAndDragHandler = e -> {
-            Duration dur = mp.getMedia().getDuration();
-            Duration time = dur.multiply(e.getX() / pb.getWidth());
-            mp.seek(time);
-            e.consume();
+        EventHandler<MouseEvent> onClickAndDragHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                Duration dur = mp.getMedia().getDuration();
+                Duration time = dur.multiply(me.getX() / pb.getWidth());
+                mp.seek(time);
+                me.consume();
+            }
         };
         pb.addEventHandler(MouseEvent.MOUSE_CLICKED, onClickAndDragHandler);
         pb.addEventHandler(MouseEvent.MOUSE_DRAGGED, onClickAndDragHandler);
@@ -122,12 +125,40 @@ public class App {
 
     @FXML
     void back10(ActionEvent event) {
-        video_mv.getMediaPlayer().seek(new Duration(video_mv.getMediaPlayer().getCurrentTime().toMillis()-10000));
+        if (video_mv != null) {
+            video_mv.getMediaPlayer().seek(new Duration(video_mv.getMediaPlayer().getCurrentTime().toMillis()-10000));
+        }
     }
 
     @FXML
     void forward10(ActionEvent event) {
-        video_mv.getMediaPlayer().seek(new Duration(video_mv.getMediaPlayer().getCurrentTime().toMillis()+10000));
+        if (video_mv != null) {
+            video_mv.getMediaPlayer().seek(new Duration(video_mv.getMediaPlayer().getCurrentTime().toMillis()+10000));
+        }
+    }
+
+    @FXML
+    void playVideo(ActionEvent event) {
+        if (video_mv != null) {
+            if (!(video_mv.getMediaPlayer().getStatus() == MediaPlayer.Status.PLAYING)) {
+                video_mv.getMediaPlayer().play();
+                play_btn.setText("Pause");
+            } else {
+                video_mv.getMediaPlayer().pause();
+                play_btn.setText("Play");
+            }
+        }
+    }
+
+    @FXML
+    void muteVideo(ActionEvent event) {
+        if (video_mv != null) {
+            if (video_mv.getMediaPlayer().isMute()) {
+                video_mv.getMediaPlayer().setMute(false);
+            } else {
+                video_mv.getMediaPlayer().setMute(true);
+            }
+        }
     }
 
     @FXML
@@ -157,17 +188,6 @@ public class App {
         }
     }
 
-    @FXML
-    void playVideo(ActionEvent event) {
-        if (!(video_mv.getMediaPlayer().getStatus() == MediaPlayer.Status.PLAYING)) {
-            video_mv.getMediaPlayer().play();
-            play_btn.setText("Pause");
-        } else {
-            video_mv.getMediaPlayer().pause();
-            play_btn.setText("Play");
-        }
-    }
-
     void createLibrary(File videoDirectory) {
         File[] videos = videoDirectory.listFiles();
 
@@ -188,15 +208,6 @@ public class App {
             } else {
                 createLibrary(video);
             }
-        }
-    }
-
-    @FXML
-    void muteVideo(ActionEvent event) {
-        if (video_mv.getMediaPlayer().isMute()) {
-            video_mv.getMediaPlayer().setMute(false);
-        } else {
-            video_mv.getMediaPlayer().setMute(true);
         }
     }
 }
