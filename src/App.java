@@ -4,21 +4,29 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.awt.Desktop;
 
 public class App {
 
@@ -35,15 +43,20 @@ public class App {
     @FXML
     private Button hide_library_btn;
 
+    @FXML
+    private RadioMenuItem hide_library_menu;
+
         @FXML
         void hideLibrary(ActionEvent event) {
             if (library_content.isVisible()) {
                 library_content.setVisible(false);
                 library_content.setManaged(false);
+                hide_library_menu.setSelected(false);
                 hide_library_btn.setText("<");
             } else {
                 library_content.setVisible(true);
                 library_content.setManaged(true);
+                hide_library_menu.setSelected(true);
                 hide_library_btn.setText(">");
             }
         }
@@ -51,15 +64,20 @@ public class App {
     @FXML
     private Button hide_edit_btn;
 
+    @FXML
+    private RadioMenuItem hide_edit_menu;
+
         @FXML
         void hideEditMenu(ActionEvent event) {
             if (edit_buttons.isVisible()) {
                 edit_buttons.setVisible(false);
                 edit_buttons.setManaged(false);
+                hide_edit_menu.setSelected(false);
                 hide_edit_btn.setText(">");
             } else {
                 edit_buttons.setVisible(true);
                 edit_buttons.setManaged(true);
+                hide_edit_menu.setSelected(true);
                 hide_edit_btn.setText("<");
             }
         }
@@ -159,8 +177,16 @@ public class App {
 
     @FXML
     private VBox video_viewer;
+
+    private File library_folder;
     
     private MediaView video_mv;
+
+    private Stage primaryStage;
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
 
     public void updateVideo(File video) {
         video_mv = new MediaView(new MediaPlayer(new Media(video.toURI().toString())));
@@ -200,7 +226,13 @@ public class App {
     }
 
     public void createLibrary(File videoDirectory) {
-        File[] videos = videoDirectory.listFiles();
+        File[] videos;
+        if (videoDirectory.isDirectory()) {
+            videos = videoDirectory.listFiles();
+        } else {
+            videos = new File[1];
+            videos[0] = videoDirectory;
+        }
 
         for (File video : videos) {
             if (!video.isDirectory()) {
@@ -213,12 +245,66 @@ public class App {
                         video_title.setText(videoBtn.getText());
                     }
                 });
-                
-                library_vbox.getChildren().add(videoBtn);
+
+                Text videoDesc = new Text();
+                try {
+                    MediaPlayer mpDuration = new MediaPlayer(new Media(video.toURI().toString()));
+                    mpDuration.setOnReady(new Runnable() {
+                        @Override
+                        public void run() {
+                            int horas = (int)mpDuration.getMedia().getDuration().toHours();
+                            int minutos = (int)(mpDuration.getMedia().getDuration().toMinutes()-horas*60);
+                            int segundos = (int)(mpDuration.getMedia().getDuration().toSeconds()-minutos*60-horas*3600);
+
+                            videoDesc.setText(video.getName().substring(video.getName().lastIndexOf(".")+1).toUpperCase() + ", " + horas + ":" + minutos + ":" + segundos);
+                        }
+                    });
+                    VBox.setMargin(videoBtn, new Insets(10,15,0,0));
+                    VBox.setMargin(videoDesc, new Insets(0,15,0,0));
+
+                    library_vbox.getChildren().add(videoBtn);
+                    library_vbox.getChildren().add(videoDesc);
+                } catch (MediaException e) {}
 
             } else {
                 createLibrary(video);
             }
         }
+    }
+
+    public void createLibrary() {
+        library_vbox.getChildren().clear();
+        createLibrary(library_folder);
+    }
+
+    @FXML
+    void changeLibraryRoot(ActionEvent event) {
+        DirectoryChooser dc = new DirectoryChooser();
+        this.library_folder = dc.showDialog(primaryStage);
+        library_vbox.getChildren().clear();
+        createLibrary();
+    }
+
+    @FXML
+    void clearLibrary(ActionEvent event) {
+        library_vbox.getChildren().clear();
+    }
+
+    @FXML 
+    void addToLibrary(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        createLibrary(fc.showOpenDialog(primaryStage));
+    }
+
+    @FXML
+    void openLibrary(ActionEvent event) {
+        try {
+            Desktop.getDesktop().open(library_folder);
+        } catch (Exception e) {}
+    }
+
+    @FXML
+    void cleanMedia(ActionEvent event) {
+        this.video_mv.getMediaPlayer().dispose();
     }
 }

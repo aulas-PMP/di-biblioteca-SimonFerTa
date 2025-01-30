@@ -13,6 +13,7 @@ public class Main extends Application{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("res/fxml/prueba.fxml"));
         Parent root = loader.load();
         App controller = loader.getController();
+        controller.setPrimaryStage(primaryStage);
         primaryStage.setTitle("Reproductor de video");
         primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.show();
