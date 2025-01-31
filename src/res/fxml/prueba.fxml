@@ -96,47 +96,6 @@
          </children>
       </VBox>
    </center>
-   <left>
-      <VBox fx:id="edit_buttons" BorderPane.alignment="CENTER">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Volumen">
-               <VBox.margin>
-                  <Insets left="10.0" />
-               </VBox.margin></Text>
-            <HBox alignment="CENTER_RIGHT">
-               <children>
-                  <Slider fx:id="video_volume" blockIncrement="0.01" max="1.0" maxWidth="-Infinity" prefWidth="100.0" value="1.0">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin></Slider>
-                  <Button fx:id="video_mutebtn" mnemonicParsing="false" onAction="#muteVideo" text="M" />
-               </children>
-            </HBox>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Velocidad">
-               <VBox.margin>
-                  <Insets left="10.0" top="10.0" />
-               </VBox.margin>
-            </Text>
-            <ChoiceBox fx:id="video_speed" onAction="#changeVideoSpeed" value="1x">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="0.25x" />
-                     <String fx:value="0.5x" />
-                     <String fx:value="0.75x" />
-                     <String fx:value="1x" />
-                     <String fx:value="1.25x" />
-                     <String fx:value="1.5x" />
-                     <String fx:value="1.75x" />
-                     <String fx:value="2x" />
-                  </FXCollections>
-               </items>
-               <VBox.margin>
-                  <Insets left="10.0" />
-               </VBox.margin>
-            </ChoiceBox>
-         </children>
-      </VBox>
-   </left>
    <right>
       <ScrollPane fx:id="library_content" hbarPolicy="NEVER" nodeOrientation="RIGHT_TO_LEFT" BorderPane.alignment="CENTER">
          <content>
@@ -144,4 +103,51 @@
          </content>
       </ScrollPane>
    </right>
+   <left>
+      <ScrollPane fx:id="edit_buttons" hbarPolicy="NEVER" BorderPane.alignment="CENTER">
+         <content>
+            <VBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Volumen">
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Slider fx:id="video_volume" blockIncrement="0.01" max="1.0" maxWidth="-Infinity" prefWidth="100.0" value="1.0">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Slider>
+                        <Button fx:id="video_mutebtn" mnemonicParsing="false" onAction="#muteVideo" text="M" />
+                     </children>
+                  </HBox>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Velocidad">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <ChoiceBox fx:id="video_speed" onAction="#changeVideoSpeed" value="1x">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="0.25x" />
+                           <String fx:value="0.5x" />
+                           <String fx:value="0.75x" />
+                           <String fx:value="1x" />
+                           <String fx:value="1.25x" />
+                           <String fx:value="1.5x" />
+                           <String fx:value="1.75x" />
+                           <String fx:value="2x" />
+                        </FXCollections>
+                     </items>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </ChoiceBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </left>
 </BorderPane>

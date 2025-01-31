@@ -86,7 +86,7 @@ public class App {
     private Menu edit;
 
     @FXML
-    private VBox edit_buttons;
+    private ScrollPane edit_buttons;
 
     @FXML
     private Menu file;
@@ -305,6 +305,8 @@ public class App {
 
     @FXML
     void cleanMedia(ActionEvent event) {
+        this.video_reproductor.getChildren().clear();
         this.video_mv.getMediaPlayer().dispose();
+        this.video_title.setText(null);
     }
 }
