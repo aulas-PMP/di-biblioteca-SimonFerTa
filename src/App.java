@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Menu;
@@ -16,6 +17,7 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -316,5 +318,14 @@ public class App {
         this.video_reproductor.getChildren().clear();
         this.video_mv.getMediaPlayer().dispose();
         this.video_title.setText(null);
+    }
+
+    @FXML
+    void showAboutUsDialog(ActionEvent event) {
+        Alert aboutUs = new Alert(AlertType.INFORMATION);
+        aboutUs.setTitle("Sobre nosotros:");
+        aboutUs.setHeaderText(null);
+        aboutUs.setContentText("Reproductor de vídeo\nSimón Fernández Tacón");
+        aboutUs.showAndWait();
     }
 }
