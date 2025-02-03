@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Menu?>
@@ -58,7 +59,10 @@
                <children>
                   <Pane HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="hide_edit_btn" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#hideEditMenu" text="&lt;" textAlignment="CENTER" />
+                        <Button fx:id="hide_edit_btn" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#hideEditMenu" styleClass="hide_btn" text="&lt;" textAlignment="CENTER">
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor></Button>
                      </children>
                   </Pane>
                   <Text fx:id="video_title" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
@@ -68,24 +72,39 @@
                   </Text>
                   <Pane nodeOrientation="RIGHT_TO_LEFT" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="hide_library_btn" mnemonicParsing="false" onAction="#hideLibrary" text="&gt;" textAlignment="CENTER" />
+                        <Button fx:id="hide_library_btn" mnemonicParsing="false" onAction="#hideLibrary" styleClass="hide_btn" text="&gt;" textAlignment="CENTER">
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor></Button>
                      </children>
                   </Pane>
                </children>
             </HBox>
-            <HBox fx:id="video_reproductor" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <HBox fx:id="video_reproductor" alignment="CENTER" VBox.vgrow="ALWAYS" />
             <VBox fx:id="video_info">
                <children>
                   <ProgressBar fx:id="video_progress_bar" maxWidth="1.7976931348623157E308" prefHeight="10.0">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
                   </ProgressBar>
-                  <HBox fx:id="video_menu" alignment="CENTER">
+                  <HBox fx:id="video_menu" alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button fx:id="play_btn" mnemonicParsing="false" onAction="#playVideo" text="Play" />
-                        <Button fx:id="backwards_10" mnemonicParsing="false" onAction="#back10" text="-10s" />
-                        <Button fx:id="forward_10" mnemonicParsing="false" onAction="#forward10" text="+10s" />
+                        <Button fx:id="play_btn" mnemonicParsing="false" onAction="#playVideo" text="Play">
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor></Button>
+                        <Button fx:id="backwards_10" mnemonicParsing="false" onAction="#back10" text="-10s">
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor></Button>
+                        <Button fx:id="forward_10" mnemonicParsing="false" onAction="#forward10" text="+10s">
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor></Button>
                      </children>
                   </HBox>
                </children>
@@ -97,18 +116,18 @@
       </VBox>
    </center>
    <right>
-      <ScrollPane fx:id="library_content" hbarPolicy="NEVER" nodeOrientation="RIGHT_TO_LEFT" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="library_content" fitToWidth="true" hbarPolicy="NEVER" nodeOrientation="RIGHT_TO_LEFT" styleClass="scroll_menu" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="library_vbox" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" />
+            <VBox fx:id="library_vbox" alignment="TOP_RIGHT" />
          </content>
       </ScrollPane>
    </right>
    <left>
-      <ScrollPane fx:id="edit_buttons" hbarPolicy="NEVER" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="edit_buttons" hbarPolicy="NEVER" styleClass="scroll_menu" BorderPane.alignment="CENTER">
          <content>
             <VBox>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Volumen">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="white-text" text="Volumen">
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
@@ -119,11 +138,17 @@
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
                         </Slider>
-                        <Button fx:id="video_mutebtn" mnemonicParsing="false" onAction="#muteVideo" text="M" />
+                        <Button fx:id="video_mutebtn" mnemonicParsing="false" onAction="#muteVideo" text="M">
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor></Button>
                      </children>
                   </HBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Velocidad">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="white-text" text="Velocidad">
                      <VBox.margin>
                         <Insets left="10.0" top="10.0" />
                      </VBox.margin>
@@ -144,6 +169,9 @@
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
                   </ChoiceBox>
                </children>
             </VBox>

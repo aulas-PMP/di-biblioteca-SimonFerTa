@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Menu;
@@ -12,6 +14,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -196,6 +199,7 @@ public class App {
         video_reproductor.getChildren().add(video_mv);
         video_mv.getMediaPlayer().setRate(Double.parseDouble(video_speed.getSelectionModel().getSelectedItem().toString().replace("x", "")));
         bindVideo(video_mv.getMediaPlayer(), video_progress_bar);
+        play_btn.setText("Play");
     }
 
     public void bindVideo(MediaPlayer mp, ProgressBar pb) {
@@ -237,6 +241,9 @@ public class App {
         for (File video : videos) {
             if (!video.isDirectory()) {
                 Button videoBtn = new Button(video.getName().replaceFirst("[.][^.]+$", ""));
+                videoBtn.setCursor(Cursor.OPEN_HAND);
+                videoBtn.getStyleClass().add("video_btn");
+                videoBtn.getStyleClass().add("white-text");
                 videoBtn.setOnAction(new EventHandler<ActionEvent>() {
 
                     @Override
@@ -246,7 +253,8 @@ public class App {
                     }
                 });
 
-                Text videoDesc = new Text();
+                Text videoDesc = new Text(video.getName().substring(video.getName().lastIndexOf(".")+1).toUpperCase());
+                videoDesc.getStyleClass().add("white-text");
                 try {
                     MediaPlayer mpDuration = new MediaPlayer(new Media(video.toURI().toString()));
                     mpDuration.setOnReady(new Runnable() {
@@ -256,14 +264,14 @@ public class App {
                             int minutos = (int)(mpDuration.getMedia().getDuration().toMinutes()-horas*60);
                             int segundos = (int)(mpDuration.getMedia().getDuration().toSeconds()-minutos*60-horas*3600);
 
-                            videoDesc.setText(video.getName().substring(video.getName().lastIndexOf(".")+1).toUpperCase() + ", " + horas + ":" + minutos + ":" + segundos);
+                            videoDesc.setText(videoDesc.getText() + ", " + horas + ":" + minutos + ":" + segundos);
                         }
                     });
-                    VBox.setMargin(videoBtn, new Insets(10,15,0,0));
-                    VBox.setMargin(videoDesc, new Insets(0,15,0,0));
+                    VBox.setMargin(videoDesc, new Insets(0,0,10,0));
 
                     library_vbox.getChildren().add(videoBtn);
                     library_vbox.getChildren().add(videoDesc);
+                    library_vbox.getChildren().add(new Separator(Orientation.HORIZONTAL));
                 } catch (MediaException e) {}
 
             } else {

@@ -1,0 +1,71 @@
+.white-text {
+    -fx-fill: white;
+    -fx-text-fill: white
+}
+
+.menu-bar {
+    -fx-background-color: rgb(20, 20, 20);
+}
+
+.menu-bar .menu .label{
+    -fx-text-fill: white
+}
+
+.menu-bar .menu:hover {
+    -fx-background-color: red;
+}
+
+.menu-bar .menu .menu-item .label{
+    -fx-text-fill: black;
+}
+
+.menu-bar .menu .menu-item:hover {
+    -fx-background-color: red;
+}
+
+#video_progress_bar {
+    -fx-background-color: black;
+    -fx-accent: red
+}
+
+.hide_btn {
+    -fx-background-color: black;
+    -fx-text-fill: grey;
+    -fx-font-weight: bold
+}
+
+.hide_btn:hover {
+    -fx-text-fill: white
+}
+
+#video_viewer {
+    -fx-background-color: black
+}
+
+.scroll_menu > .viewport {
+    -fx-background-color: transparent
+}
+
+.scroll_menu {
+    -fx-background-color: rgb(31, 31, 31)
+}
+
+.video_btn {
+    -fx-background-color: transparent;
+    -fx-font-weight: bold
+}
+
+.scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 3em;
+}
