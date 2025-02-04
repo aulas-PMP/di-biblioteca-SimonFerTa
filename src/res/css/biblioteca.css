@@ -3,6 +3,12 @@
     -fx-text-fill: white
 }
 
+.title {
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-font-family: 'serif';
+}
+
 .menu-bar {
     -fx-background-color: rgb(20, 20, 20);
 }
@@ -68,4 +74,13 @@
 .scroll-bar:vertical .thumb {
     -fx-background-color: white;
     -fx-background-radius: 3em;
+}
+
+.mute-btn {
+    -fx-background-color: red;
+    -fx-background-radious: 5em;
+}
+
+.velocity-choice {
+    -fx-background-color: red;
 }

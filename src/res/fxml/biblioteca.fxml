@@ -69,6 +69,10 @@
                      <font>
                         <Font size="16.0" />
                      </font>
+                     <styleClass>
+                        <String fx:value="white-text" />
+                        <String fx:value="title" />
+                     </styleClass>
                   </Text>
                   <Pane nodeOrientation="RIGHT_TO_LEFT" HBox.hgrow="ALWAYS">
                      <children>
@@ -142,7 +146,7 @@
                               <Cursor fx:constant="OPEN_HAND" />
                            </cursor>
                         </Slider>
-                        <Button fx:id="video_mutebtn" mnemonicParsing="false" onAction="#muteVideo" text="M">
+                        <Button fx:id="video_mutebtn" mnemonicParsing="false" onAction="#muteVideo" styleClass="mute-btn" text="M">
                            <cursor>
                               <Cursor fx:constant="OPEN_HAND" />
                            </cursor></Button>
@@ -153,7 +157,7 @@
                         <Insets left="10.0" top="10.0" />
                      </VBox.margin>
                   </Text>
-                  <ChoiceBox fx:id="video_speed" onAction="#changeVideoSpeed" value="1x">
+                  <ChoiceBox fx:id="video_speed" onAction="#changeVideoSpeed" styleClass="velocity-choice" value="1x">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
                            <String fx:value="0.25x" />

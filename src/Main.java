@@ -18,7 +18,7 @@ public class Main extends Application{
         primaryStage.setScene(new Scene(root, 1000, 700));
         primaryStage.getScene().getStylesheets().add("res/css/biblioteca.css");
         primaryStage.show();
-        controller.createLibrary(new File("src/res/videos"));
+        controller.createLibrary(new File("src/res/library"));
     }
 
     public static void main(String[] args) {
