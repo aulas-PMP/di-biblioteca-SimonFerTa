@@ -1,4 +1,4 @@
-.white-text {
+.white-text, .white-text *{
     -fx-fill: white;
     -fx-text-fill: white
 }
@@ -18,7 +18,7 @@
 }
 
 .menu-bar .menu:hover {
-    -fx-background-color: red;
+    -fx-background-color: rgb(170, 0, 0);
 }
 
 .menu-bar .menu .menu-item .label{
@@ -26,7 +26,7 @@
 }
 
 .menu-bar .menu .menu-item:hover {
-    -fx-background-color: red;
+    -fx-background-color: rgb(170, 0, 0);
 }
 
 #video_progress_bar {
@@ -77,10 +77,10 @@
 }
 
 .mute-btn {
-    -fx-background-color: red;
-    -fx-background-radious: 5em;
+    -fx-background-color: rgb(170, 0, 0);
+    -fx-background-radius: 16.4, 15;
 }
 
 .velocity-choice {
-    -fx-background-color: red;
+    -fx-background-color: rgb(170, 0, 0);
 }

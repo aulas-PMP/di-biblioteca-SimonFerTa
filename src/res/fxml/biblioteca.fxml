@@ -120,9 +120,9 @@
       </VBox>
    </center>
    <right>
-      <ScrollPane fx:id="library_content" fitToWidth="true" hbarPolicy="NEVER" nodeOrientation="RIGHT_TO_LEFT" styleClass="scroll_menu" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="library_content" fitToWidth="true" hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" styleClass="scroll_menu" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="library_vbox" alignment="TOP_RIGHT" />
+            <VBox fx:id="library_vbox" />
          </content>
       </ScrollPane>
    </right>
@@ -146,10 +146,14 @@
                               <Cursor fx:constant="OPEN_HAND" />
                            </cursor>
                         </Slider>
-                        <Button fx:id="video_mutebtn" mnemonicParsing="false" onAction="#muteVideo" styleClass="mute-btn" text="M">
+                        <Button fx:id="video_mutebtn" mnemonicParsing="false" onAction="#muteVideo" text="M">
                            <cursor>
                               <Cursor fx:constant="OPEN_HAND" />
-                           </cursor></Button>
+                           </cursor>
+                           <styleClass>
+                              <String fx:value="mute-btn" />
+                              <String fx:value="white-text" />
+                           </styleClass></Button>
                      </children>
                   </HBox>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="white-text" text="Velocidad">
@@ -157,7 +161,7 @@
                         <Insets left="10.0" top="10.0" />
                      </VBox.margin>
                   </Text>
-                  <ChoiceBox fx:id="video_speed" onAction="#changeVideoSpeed" styleClass="velocity-choice" value="1x">
+                  <ChoiceBox fx:id="video_speed" onAction="#changeVideoSpeed" value="1x">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
                            <String fx:value="0.25x" />
@@ -176,6 +180,10 @@
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
+                     <styleClass>
+                        <String fx:value="velocity-choice" />
+                        <String fx:value="white-text" />
+                     </styleClass>
                   </ChoiceBox>
                </children>
             </VBox>

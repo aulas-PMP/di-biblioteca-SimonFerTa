@@ -187,7 +187,7 @@ public class App {
     @FXML
     private VBox video_viewer;
 
-    private File library_folder;
+    private File library_folder = new File("src/res/library");
     
     private MediaView video_mv;
 
@@ -282,7 +282,7 @@ public class App {
                             videoDesc.setText(videoDesc.getText() + ", " + df.format(horas) + ":" + df.format(minutos) + ":" + df.format(segundos));
                         }
                     });
-                    VBox.setMargin(videoDesc, new Insets(0,0,10,0));
+                    VBox.setMargin(videoDesc, new Insets(0,0,10,15));
 
                     library_vbox.getChildren().add(videoBtn);
                     library_vbox.getChildren().add(videoDesc);
@@ -328,14 +328,19 @@ public class App {
     void openLibrary(ActionEvent event) {
         try {
             Desktop.getDesktop().open(library_folder);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();  // Print the full stack trace for more info
+        }
     }
+    
 
     @FXML
     void cleanMedia(ActionEvent event) {
         this.video_reproductor.getChildren().clear();
-        this.video_mp.dispose();
-        this.video_title.setText(null);
+        if (video_mp != null) {
+            this.video_mp.dispose();
+            this.video_title.setText(null);
+        }
     }
 
     @FXML
